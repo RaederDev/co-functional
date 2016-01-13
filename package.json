@@ -10,6 +10,7 @@
     "url": "https://github.com/N0ps32/co-functional.git"
   },
   "dependencies": {
+    "co": "^4.6.0",
     "lodash": "^4.0.0"
   },
   "browserify": {

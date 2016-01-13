@@ -1,15 +1,27 @@
 {
   "name": "co-functional",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "",
   "main": "index.js",
   "author": "Benjamin Räder <github@raeder.technology>",
   "license": "MIT",
-  "browserify": {
-    "transform": [["babelify", { "presets": ["es2015"] }]]
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/N0ps32/co-functional.git"
   },
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-util": "^3.0.7"
+  "dependencies": {
+    "lodash": "^4.0.0"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
   }
 }

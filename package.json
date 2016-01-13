@@ -1,12 +1,21 @@
 {
   "name": "co-functional",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "",
   "main": "index.js",
   "author": "Benjamin Räder <github@raeder.technology>",
   "license": "MIT",
   "browserify": {
-    "transform": [["babelify", { "presets": ["es2015"] }]]
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
   },
   "devDependencies": {
     "gulp": "^3.9.0",

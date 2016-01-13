@@ -1,6 +1,6 @@
 {
-  "name": "co-utils",
-  "version": "0.1.0",
+  "name": "co-functional",
+  "version": "0.1.1",
   "description": "",
   "main": "index.js",
   "author": "Benjamin Räder <github@raeder.technology>",

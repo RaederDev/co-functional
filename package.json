@@ -7,7 +7,7 @@
   "license": "MIT",
   "browserify": {
     "transform": [["babelify", { "presets": ["es2015"] }]]
-  }
+  },
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-util": "^3.0.7"

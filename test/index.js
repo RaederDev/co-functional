@@ -110,16 +110,16 @@ co(function* () {
 
 //compose
 const composed = utils.compose(
-    function(n) {
-      console.log(n);
+    function (n) {
+        console.log(n);
     },
-    function(n) {
+    function (n) {
         return Promise.resolve(n + 1);
     },
     function* (n) {
         return yield Promise.resolve(n + 1)
     },
-    function(n) {
+    function (n) {
         return n;
     }
 );
@@ -128,25 +128,26 @@ console.log(composed);
 composed(0).catch(onError);
 
 
+const obj = {
+    property: 1234,
+    fn: function () {
+        console.log('Inside lazyBind 1', this.property);
+        const promise = utils.bind(function* (arg) {
+            console.log('Inside lazyBind 2', this.property);
+            console.log(arg);
+        }, this, 123).catch(onError);
+        console.log('Bound Promise lazyBind 3', promise);
+    },
+    fn2: function () {
+        console.log('Inside bind 1', this.property);
+        const bound = utils.lazyBind(function* (arg) {
+            console.log('Inside bind 2', this.property);
+            console.log(arg);
+        }, this);
+        console.log('Bound FN bind 3', bound);
+        console.log(bound(123));
+    }
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+obj.fn();
+obj.fn2();

@@ -3,6 +3,23 @@
   "version": "0.1.6",
   "description": "",
   "main": "index.js",
+  "keywords": [
+    "co",
+    "co functional",
+    "co-functional",
+    "functional",
+    "co bind",
+    "co for",
+    "co forEach",
+    "co filter",
+    "co reduce",
+    "co compose",
+    "async",
+    "promise"
+  ],
+  "scripts": {
+    "test": "mocha test/index.js"
+  },
   "author": "Benjamin Räder <github@raeder.technology>",
   "license": "MIT",
   "repository": {
@@ -24,5 +41,10 @@
         }
       ]
     ]
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "chai-as-promised": "^5.2.0",
+    "mocha": "^2.3.4"
   }
 }

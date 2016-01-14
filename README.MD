@@ -7,7 +7,7 @@ Currently the library provides the following functions:
 - [bind, lazyBind](#bind)
 - [compose](#compose)
 - [filter, filterSerial](#filter)
-- [forEach, forEachSerial](#for-each)
+- [forEach, forEachSerial](#for)
 - [map, mapSerial](#map)
 - [reduce](#reduce)
 
@@ -114,7 +114,7 @@ promise.then(oddNumbers => {
     console.log('All odd numbers: ', oddNumbers);
 });
 ```
-###[forEach, forEachSerial](#for-each)
+###[forEach, forEachSerial](#for)
 
 **"forEach"** loops over the given Array or Object asynchronously.  
 This function is curried so you may leave of the second parameter to delay execution.  
@@ -193,7 +193,7 @@ const promise2 = cf.mapSerial(function* (data, key) {
 
 ###[reduce](#reduce)
 **"reduce"** reduces the given Array using the given generator function asynchronously but one after another.  
-That means your elements will get filtered in order and the function will wait until somethin
+That means your elements will get reduced in order and the function will wait until somethin
 has been returned by your function before continuing execution.
 
 The function is passed the accumulator as the first Parameter, the current value as the second value

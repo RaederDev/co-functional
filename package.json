@@ -5,6 +5,14 @@
   "main": "index.js",
   "author": "Benjamin Räder <github@raeder.technology>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/N0ps32/co-functional.git"
+  },
+  "dependencies": {
+    "co": "^4.6.0",
+    "lodash": "^4.0.0"
+  },
   "browserify": {
     "transform": [
       [
@@ -16,9 +24,5 @@
         }
       ]
     ]
-  },
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-util": "^3.0.7"
   }
 }

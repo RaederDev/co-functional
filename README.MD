@@ -4,12 +4,12 @@ co-functional is a MIT licenced library that provides several functions for use 
 library. Functions are curried (where possible) and are always iteratee-first, data last.
 
 Currently the library provides the following functions:
-- [bind, lazyBind](#bind)
-- [compose](#compose)
-- [filter, filterSerial](#filter)
-- [forEach, forEachSerial](#for)
-- [map, mapSerial](#map)
-- [reduce](#reduce)
+- [bind, lazyBind](#user-content-bind)
+- [compose](#user-content-compose)
+- [filter, filterSerial](#user-content-filter)
+- [forEach, forEachSerial](#user-content-for)
+- [map, mapSerial](#user-content-map)
+- [reduce](#user-content-reduce)
 
 ## Installation
 You can install co-functional using npm:
@@ -29,7 +29,7 @@ So you can also require co-functional in a browser in a non-ES2015 environment u
 Note that while in the following examples the returned Promises is handeled manually
 you can of course yield the output of each function if you have a GeneratorFunction that is wrapped with co.
 
-###[bind, lazyBind](#bind)
+###[<a name="bind"></a>bind, lazyBind](#bind)
 
 **"bind"** binds the given function to the given context and executes it.  
 The given generator function will be wrapped in co.  
@@ -45,7 +45,7 @@ const promise = cf.bind(function* (argument) {
 The given generator function will be wrapped in co.  
 "lazyBind" is curried so you may leave of the second parameter to delay execution.  
 ```javascript
-const bound = cf.bind(function* (argument) {
+const bound = cf.lazyBind(function* (argument) {
     console.log(this); //scope that was bound
     console.log(argument); //1234
 }, this);
@@ -54,7 +54,7 @@ const promise = bound(1234);
 promise.then(...);
 ```
 
-###[compose](#compose)
+###[<a name="compose"></a>compose](#compose)
 
 **"compose"** composes the given functions left to right.  
 If a function returns a promise the chain will wait for the promise to resolve and continue with the resolved value.  
@@ -79,7 +79,7 @@ const composed = cf.compose(
 composed(0).then(...).catch(...);
 ```
 
-###[filter, filterSerial](#filter)
+###[<a name="filter"></a>filter, filterSerial](#filter)
 
 **"filter"** filters the given Array using the given generator function asynchronously.  
 This function is curried so you may leave of the second parameter to delay execution.  
@@ -106,7 +106,7 @@ The given generator function will be wrapped with co prior to execution.
 
 ```javascript
 const asyncIsOddNumber = number => Promise.resolve(number % 2 === 0);
-const promise = cf.filter(function* (number) {
+const promise = cf.filterSerial(function* (number) {
     return yield asyncIsOddNumber(number);
 }, [1, 2, 4]);
 
@@ -114,7 +114,7 @@ promise.then(oddNumbers => {
     console.log('All odd numbers: ', oddNumbers);
 });
 ```
-###[forEach, forEachSerial](#for)
+###[<a name="for"></a>forEach, forEachSerial](#for)
 
 **"forEach"** loops over the given Array or Object asynchronously.  
 This function is curried so you may leave of the second parameter to delay execution.  
@@ -150,7 +150,7 @@ const promise2 = cf.forEachSerial(function* (data, key) {
 }, { a: 2, b: 4});
 ```
 
-###[map, mapSerial](#map)
+###[<a name="map"></a>map, mapSerial](#map)
 **"map"** maps over the given Array or Object asynchronously.  
 If you pass an object it will be cloned to avoid modification.  
 This function is curried so you may leave of the second parameter to delay execution.  
@@ -191,7 +191,7 @@ const promise2 = cf.mapSerial(function* (data, key) {
 }, { a: 2, b: 4});
 ```
 
-###[reduce](#reduce)
+###[<a name="reduce"></a>reduce](#reduce)
 **"reduce"** reduces the given Array using the given generator function asynchronously but one after another.  
 That means your elements will get reduced in order and the function will wait until somethin
 has been returned by your function before continuing execution.

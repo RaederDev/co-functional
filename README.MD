@@ -56,7 +56,7 @@ promise.then(...);
 
 ###[<a name="compose"></a>compose](#compose)
 
-**"compose"** composes the given functions left to right.  
+**"compose"** composes the given functions right to left.  
 If a function returns a promise the chain will wait for the promise to resolve and continue with the resolved value.  
 If you pass a generator function as a function it will be wrapped with co and executed.  
 You may pass multiple parameters to the first function but note that the following functions will only receive one value.

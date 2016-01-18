@@ -193,7 +193,7 @@ const promise2 = cf.mapSerial(function* (data, key) {
 
 ###[<a name="reduce"></a>reduce](#reduce)
 **"reduce"** reduces the given Array using the given generator function asynchronously but one after another.  
-That means your elements will get reduced in order and the function will wait until somethin
+That means your elements will get reduced in order and the function will wait until something
 has been returned by your function before continuing execution.
 
 The function is passed the accumulator as the first Parameter, the current value as the second value
@@ -210,3 +210,11 @@ const promise = cf.reduce(function* (accumulator, number, arrayIndex) {
 
 promise.then(result => console.log(result)); //13
 ```
+
+## Tests
+To execute the tests run
+```
+npm test
+```
+in the main directory.
+If you contribute new code make sure to include tests for your code!

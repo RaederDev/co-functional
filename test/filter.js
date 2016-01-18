@@ -8,37 +8,51 @@ const cf = require('../index');
 
 chai.use(chaiAsPromised);
 
-const RAW_DATA_ARRAY = [1, 2, 3, 4, 5, 6, 7, 8];
-const RAW_DATA_OBJECT = {
-    a: 1,
-    b: 2,
-    c: 3
-};
+const RAW_DATA = [1, 2, 3, 4, 5, 6, 7, 8];
+const FILTERED_DATA = [2, 4, 6, 8];
 
+const syncFilterEven = n => n % 2 === 0;
+const asyncFilterEven = n => Promise.resolve(n % 2 === 0);
 const asyncFilterEvenGenerator = function* asyncFilterEvenGenerator(n) {
     return yield Promise.resolve(n % 2 === 0);
 };
 
-describe("forEach", function() {
+describe("filter", function() {
 
     it("returns a function when only given one argument", function() {
-        return cf.forEach(function(){}).should.be.a('function');
+        return cf.filter(asyncFilterEvenGenerator).should.be.a('function');
     });
 
-    it("loops through an Array using a generator function passing the value as the first, the key as the second argument", function() {
-        const emptyData = [];
-        cf.forEach(function* (value, key) {
-            emptyData[key] = value;
-        }, RAW_DATA_ARRAY);
-        expect(emptyData).to.eql(RAW_DATA_ARRAY);
+    it("filters the given array of data using a generator function", function() {
+        return cf.filter(asyncFilterEvenGenerator, RAW_DATA).should.eventually.eql(FILTERED_DATA);
     });
 
-    it("loops through an Object using a generator function passing the value as the first, the key as the second argument", function() {
-        const emptyObject = {};
-        cf.forEach(function* (value, key) {
-            emptyObject[key] = value;
-        }, RAW_DATA_OBJECT);
-        expect(emptyObject).to.eql(RAW_DATA_OBJECT);
+    it("filters the given array of data using a function that returns a Promise", function() {
+        return cf.filter(asyncFilterEven, RAW_DATA).should.eventually.eql(FILTERED_DATA);
+    });
+
+    it("filters the given array of data using a function that returns the result directly", function() {
+        return cf.filter(syncFilterEven, RAW_DATA).should.eventually.eql(FILTERED_DATA);
+    });
+
+});
+
+describe("filterSerial", function() {
+
+    it("returns a function when only given one argument", function() {
+        return cf.filterSerial(asyncFilterEvenGenerator).should.be.a('function');
+    });
+
+    it("filters the given array of data using a generator function", function() {
+        return cf.filterSerial(asyncFilterEvenGenerator, RAW_DATA).should.eventually.eql(FILTERED_DATA);
+    });
+
+    it("filters the given array of data using a function that returns a Promise", function() {
+        return cf.filterSerial(asyncFilterEven, RAW_DATA).should.eventually.eql(FILTERED_DATA);
+    });
+
+    it("filters the given array of data using a function that returns the result directly", function() {
+        return cf.filterSerial(syncFilterEven, RAW_DATA).should.eventually.eql(FILTERED_DATA);
     });
 
 });

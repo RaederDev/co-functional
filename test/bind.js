@@ -33,6 +33,19 @@ describe("bind", function() {
         }, TEST_OBJECT, TEST_STRING_1, TEST_STRING_2).should.eventually.equal(result);
     });
 
+    it("binds the given Function to the given context", function() {
+        return cf.bind(function() {
+            return this.prop;
+        }, TEST_OBJECT).should.eventually.equal(TEST_NUMBER);
+    });
+
+    it("binds the given Function to the given context and passes arguments to the function", function() {
+        const result = TEST_STRING_1 + TEST_STRING_2 + TEST_NUMBER;
+        return cf.bind(function(arg1, arg2) {
+            return arg1 + arg2 + this.prop;
+        }, TEST_OBJECT, TEST_STRING_1, TEST_STRING_2).should.eventually.equal(result);
+    });
+
 });
 
 describe("lazyBind", function() {
@@ -59,6 +72,13 @@ describe("lazyBind", function() {
     it("binds the given GeneratorFunction to the given context and passes arguments to the function", function() {
         const result = TEST_STRING_1 + TEST_STRING_2 + TEST_NUMBER;
         return cf.lazyBind(function* (arg1, arg2) {
+            return arg1 + arg2 + this.prop;
+        }, TEST_OBJECT)(TEST_STRING_1, TEST_STRING_2).should.eventually.equal(result);
+    });
+
+    it("binds the given Function to the given context and passes arguments to the function", function() {
+        const result = TEST_STRING_1 + TEST_STRING_2 + TEST_NUMBER;
+        return cf.lazyBind(function (arg1, arg2) {
             return arg1 + arg2 + this.prop;
         }, TEST_OBJECT)(TEST_STRING_1, TEST_STRING_2).should.eventually.equal(result);
     });

@@ -32,7 +32,7 @@ you can of course yield the output of each function if you have a GeneratorFunct
 ###[<a name="bind"></a>bind, lazyBind](#bind)
 
 **"bind"** binds the given function to the given context and executes it.  
-The given generator function will be wrapped in co.  
+If the given function is a GeneratorFunction it will be wrapped with co.  
 "bind" is curried so you may leave of the second parameter to delay execution.  
 ```javascript
 const promise = cf.bind(function* (argument) {
@@ -42,7 +42,7 @@ const promise = cf.bind(function* (argument) {
 ```
 
 **"lazyBind"** binds the given function to the given context and returns the bound function.  
-The given generator function will be wrapped in co.  
+If the given function is a GeneratorFunction it will be wrapped with co.  
 "lazyBind" is curried so you may leave of the second parameter to delay execution.  
 ```javascript
 const bound = cf.lazyBind(function* (argument) {
@@ -83,7 +83,8 @@ composed(0).then(...).catch(...);
 
 **"filter"** filters the given Array using the given generator function asynchronously.  
 This function is curried so you may leave of the second parameter to delay execution.  
-The given generator function will be wrapped with co prior to execution.  
+If the function returns a Promise the Promise will be resolved and the result will be used.  
+If the given function is a GeneratorFunction it will be wrapped with co.  
 
 ```javascript
 const asyncIsOddNumber = number => Promise.resolve(number % 2 === 0);
@@ -102,7 +103,8 @@ That means your elements will get filtered in order and the function will wait u
 has been returned by your GeneratorFunction before continuing execution.
 
 This function is curried so you may leave of the second parameter to delay execution.  
-The given generator function will be wrapped with co prior to execution.  
+If the function returns a Promise the Promise will be resolved and the result will be used.  
+If the given function is a GeneratorFunction it will be wrapped with co.  
 
 ```javascript
 const asyncIsOddNumber = number => Promise.resolve(number % 2 === 0);
@@ -119,7 +121,8 @@ promise.then(oddNumbers => {
 **"forEach"** loops over the given Array or Object asynchronously.  
 This function is curried so you may leave of the second parameter to delay execution.  
 The value is passed as the first, the key/index as the second parameter.  
-The given generator function will be wrapped with co prior to execution.
+If the function returns a Promise the Promise execution will halt until all Promises have been resolved.  
+If the given function is a GeneratorFunction it will be wrapped with co.  
 
 ```javascript
 const promise = cf.forEach(function* (data, index) {
@@ -138,7 +141,7 @@ has been returned by your function before continuing execution.
 
 This function is curried so you may leave of the second parameter to delay execution.  
 The value is passed as the first, the key/index as the second parameter.  
-The given generator function will be wrapped with co prior to execution.
+If the given function is a GeneratorFunction it will be wrapped with co.  
 
 ```javascript
 const promise = cf.forEachSerial(function* (data, index) {
@@ -155,7 +158,8 @@ const promise2 = cf.forEachSerial(function* (data, key) {
 If you pass an object it will be cloned to avoid modification.  
 This function is curried so you may leave of the second parameter to delay execution.  
 The value is passed as the first, the key/index as the second parameter.  
-The given generator function will be wrapped with co prior to execution.  
+If the function returns a Promise the Promise will be resolved and the result will be used.  
+If the given function is a GeneratorFunction it will be wrapped with co.  
 
 ```javascript
 const double = value => Promise.resolve(value * 2);
@@ -175,7 +179,12 @@ const promise2 = cf.map(function* (data, key) {
 If you pass an object it will be cloned to avoid modification.  
 If you want the highest possible speed you should not use this function but the completely asynchronous map function!  
 That means your elements will get mapped over in order and the function will wait until something
-has been returned by your function before continuing execution.
+has been returned by your function before continuing execution.  
+
+This function is curried so you may leave of the second parameter to delay execution.  
+The value is passed as the first, the key/index as the second parameter.  
+If the function returns a Promise the Promise will be resolved and the result will be used.  
+If the given function is a GeneratorFunction it will be wrapped with co.  
 
 ```javascript
 const double = value => Promise.resolve(value * 2);
@@ -200,7 +209,8 @@ The function is passed the accumulator as the first Parameter, the current value
 and the current Array index as the third parameter.
 
 This function is curried so you may leave of any parameter to delay execution.  
-The given generator function will be wrapped with co prior to execution.  
+If the function returns a Promise the Promise will be resolved and the result will be used.  
+If the given function is a GeneratorFunction it will be wrapped with co.  
 
 ```javascript
 const asyncAddNumber = (a, b) => Promise.resolve(a + b);
